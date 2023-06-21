@@ -4,14 +4,12 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 
 import "../components/css/global.css";
-import { CssBaseline, ThemeProvider, useMediaQuery, useTheme } from "@mui/material";
-import MobileNav from "@/components/navbar/MobileNav";
+import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import customTheme from "@/components/config/Theme";
 import Footer from "@/components/footer";
 
 const MainApp = ({ Component, pageProps }: AppProps) => {
   const theme = useTheme();
-  const md = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Layout>

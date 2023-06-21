@@ -151,7 +151,7 @@ const LaptopNav = () => {
                   </Button>
                 </>
               )}
-              {/* <Button sx={{ ml: "auto" }} component={Link} href="/dashboard" variant="text" color="inherit">Dashboard</Button> */}
+              {/* <Button component={Link} href="/dashboard" variant="text" color="inherit">Dashboard</Button> */}
             </Toolbar>
           </Container>
         </AppBar>
