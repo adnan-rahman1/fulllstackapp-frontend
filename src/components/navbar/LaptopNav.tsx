@@ -107,7 +107,7 @@ const LaptopNav = () => {
                   >
                     Home
                   </Button>
-                  <Button
+                  {/* <Button
                     size="large"
                     sx={
                       router.pathname === "/blog"
@@ -120,7 +120,7 @@ const LaptopNav = () => {
                     color="inherit"
                   >
                     Blog
-                  </Button>
+                  </Button> */}
                   <Button
                     size="large"
                     sx={

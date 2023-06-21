@@ -81,7 +81,7 @@ const MobileNav = ({ isDrawerOpen, setOpenDrawer }: MobileNavProps) => {
           </ListItemIcon>
           <ListItemText>Home</ListItemText>
         </ListItemButton>
-        <ListItemButton
+        {/* <ListItemButton
           sx={router.pathname === "/blog" ? { ...activeListItemClass } : null}
           component={Link}
           href="/blog"
@@ -92,7 +92,7 @@ const MobileNav = ({ isDrawerOpen, setOpenDrawer }: MobileNavProps) => {
             <ArticleRounded />
           </ListItemIcon>
           <ListItemText>Blog</ListItemText>
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton
           sx={router.pathname === "/about" ? { ...activeListItemClass } : null}
           component={Link}
