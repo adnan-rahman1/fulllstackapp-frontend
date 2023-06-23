@@ -12,6 +12,7 @@ import {
   useTheme,
   alpha,
   Tab,
+  IconButton,
 } from "@mui/material";
 import { NextPage } from "next";
 import Image from "next/image";
@@ -23,10 +24,11 @@ import githubImg from "../../../public/assets/github.png";
 import facebookImg from "../../../public/assets/facebook.png";
 import artstationImg from "../../../public/assets/artstation.png";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import ReactMarkdown from "react-markdown";
-
+import { ArrowLeftRounded, ArrowRightRounded } from "@mui/icons-material";
+import { projects } from "@/components/utils/projects";
 
 const aboutDescription = `
 ### Intro 
@@ -39,16 +41,31 @@ Consistency, confidence, and fundamental knowledge are my strengths, which help 
 * **JavaScript** - ReactJS, NextJS, TypeScript
 * **Database** - MySQL, PostgreSQL
 * **DevOps** - Jenkins, Docker, Amazon Web Service
-`
+`;
+
+
 
 const About: NextPage = () => {
   const theme = useTheme();
 
+  const [projIndex, setProjIndex] = useState(0);
+  const totalProject = 2;
+
   const [value, setValue] = useState("1");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setValue(newValue);
+    },
+    [setValue]
+  );
+
+  const handleOnClick = useCallback(
+    (idx: number) => {
+      setProjIndex(projIndex + idx);
+    },
+    [setProjIndex, projIndex]
+  );
 
   return (
     <Grid
@@ -98,7 +115,11 @@ const About: NextPage = () => {
                 <Typography variant="h5" fontWeight={500} color="secondary">
                   Adnan Rahman
                 </Typography>
-                <Typography variant="subtitle1" fontWeight={500} color="secondary">
+                <Typography
+                  variant="subtitle1"
+                  fontWeight={500}
+                  color="secondary"
+                >
                   Full-Stack Software Engineer
                 </Typography>
               </Box>
@@ -139,7 +160,9 @@ const About: NextPage = () => {
             <Card variant="elevation" sx={{ p: 1, m: 1 }}>
               <CardHeader
                 title={
-                  <Typography variant="h6" sx={{ color: "#666" }}>Get access to my resume:</Typography>
+                  <Typography variant="h6" sx={{ color: "#666" }}>
+                    Get access to my resume:
+                  </Typography>
                 }
               />
               <CardContent sx={{ display: "flex" }}>
@@ -176,6 +199,9 @@ const About: NextPage = () => {
           elevation={3}
           sx={{
             m: 2,
+            [theme.breakpoints.down("md")]: {
+              mb: 6,
+            },
             borderLeft: `3px solid ${theme.palette.primary.main}`,
             borderBottom: `3px solid ${theme.palette.secondary.main}`,
           }}
@@ -199,9 +225,42 @@ const About: NextPage = () => {
 
                     <Tab
                       label={
-                        <Typography sx={{ textTransform: "none" }} variant="h6">
-                          Project
-                        </Typography>
+                        <Box
+                          sx={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 1,
+                          }}
+                        >
+                          {value === "2" ? (
+                            <IconButton
+                              component="span"
+                              disabled={projIndex === 0}
+                              size="small"
+                              onClick={() => handleOnClick(-1)}
+                            >
+                              <ArrowLeftRounded />
+                            </IconButton>
+                          ) : null}
+                          <Typography
+                            sx={{ textTransform: "none" }}
+                            variant="h6"
+                          >
+                            Project
+                          </Typography>
+                          {value === "2" ? (
+                            <IconButton
+                              component="span"
+                              disabled={projIndex === totalProject}
+                              size="small"
+                              onClick={() => handleOnClick(1)}
+                            >
+                              <ArrowRightRounded />
+                            </IconButton>
+                          ) : null}
+                        </Box>
                       }
                       value="2"
                     />
@@ -211,12 +270,17 @@ const About: NextPage = () => {
                   value="1"
                   sx={{ height: "500px", overflow: "overlay", color: "#666" }}
                 >
-                  <ReactMarkdown >
-                    {aboutDescription}
-                  </ReactMarkdown>
+                  <ReactMarkdown>{aboutDescription}</ReactMarkdown>
                 </TabPanel>
-                <TabPanel value="2" sx={{ height: "500px" }}>
-                  Coming Soon
+                <TabPanel
+                  value="2"
+                  sx={{
+                    position: "relative",
+                    height: "500px",
+                    overflow: "overlay",
+                  }}
+                >
+                  <ReactMarkdown>{projects[projIndex]}</ReactMarkdown>
                 </TabPanel>
               </TabContext>
             </Box>

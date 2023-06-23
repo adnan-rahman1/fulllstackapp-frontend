@@ -6,3 +6,12 @@ body {
     height: 100%;
     width: 100%;
 }
+
+.mui-carousel {
+    align-items: center;
+    justify-content: space-between;
+    gap: 3;
+    width: inherit;
+}
+.mui-carousel > div:nth-child(1) {
+}
